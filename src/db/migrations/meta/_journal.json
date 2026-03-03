@@ -8,6 +8,27 @@
       "when": 1772167408909,
       "tag": "0000_real_mercury",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1772548371584,
+      "tag": "0001_reflective_scarlet_spider",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1772551743003,
+      "tag": "0002_military_mandrill",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1772555119044,
+      "tag": "0003_dizzy_iron_patriot",
+      "breakpoints": true
     }
   ]
 }

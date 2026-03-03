@@ -17,7 +17,7 @@ const mukta = Mukta({
 });
 
 export const metadata: Metadata = {
-  title: "Vidhan - Nepal Federal Legislative Management System",
+  title: "Vidhan Tracker - Nepal Federal Legislative Management System",
   description:
     "Track bills through Nepal's parliament in real time. A comprehensive platform for legislative transparency.",
 };

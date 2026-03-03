@@ -37,10 +37,10 @@ const Navbar = () => {
           </div>
           <div className="flex flex-col leading-none">
             <span className="text-xl font-bold text-foreground tracking-tight">
-              Vidhan<span className="text-primary">.</span>
+              Vidhan Tracker<span className="text-primary">.</span>
             </span>
             <span className="text-[10px] text-muted-foreground tracking-widest uppercase hidden sm:block">
-              Legislative Tracker
+              Legislative Tracker System
             </span>
           </div>
         </Link>
@@ -90,7 +90,7 @@ const Navbar = () => {
               )}
             </AnimatePresence>
           </motion.button>
-          <Link href="/app">
+          <Link href="/dashboard">
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
