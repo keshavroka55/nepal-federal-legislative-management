@@ -188,11 +188,33 @@ export const billStatusHistory = pgTable(
 
 export const committees = pgTable("committees", {
   id: serial("id").primaryKey(),
+  slug: text("slug"),
   nameNp: text("name_np"),
   nameEn: text("name_en"),
   house: billHouseEnum("house"),
+  introductionNp: text("introduction_np"),
+  introductionEn: text("introduction_en"),
+  chairperson: text("chairperson"),
+  chairpersonNp: text("chairperson_np"),
+  chairpersonEn: text("chairperson_en"),
+  secretaryNp: text("secretary_np"),
+  secretaryEn: text("secretary_en"),
+  menuLinksNp: jsonb("menu_links_np").$type<Record<string, string>>(),
+  menuLinksEn: jsonb("menu_links_en").$type<Record<string, string>>(),
+  membersPageUrlNp: text("members_page_url_np"),
+  membersPageUrlEn: text("members_page_url_en"),
+  parliamentUrlNp: text("parliament_url_np"),
+  parliamentUrlEn: text("parliament_url_en"),
+  startDate: date("start_date"),
+  endDate: date("end_date"),
   createdAt: timestamp("created_at").defaultNow(),
-});
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => ({
+  houseSlugUniqueIdx: uniqueIndex("committees_house_slug_uq").on(
+    table.house,
+    table.slug,
+  ),
+}));
 
 // ============================================================
 // BILL COMMITTEE ASSIGNMENTS — which committee reviewed which bill

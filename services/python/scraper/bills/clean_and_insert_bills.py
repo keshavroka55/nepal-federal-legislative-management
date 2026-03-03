@@ -36,8 +36,12 @@ def load_bills_data(file_path: str = None):
         if bills_files:
             file_path = str(max(bills_files, key=lambda p: p.stat().st_mtime))
         else:
-            # Try default location
-            file_path = str(DATA_DIR / "bills.json")
+            # Fallback to scraper-local timestamped files
+            local_files = list(DATA_DIR.glob("bills_*.json"))
+            if local_files:
+                file_path = str(max(local_files, key=lambda p: p.stat().st_mtime))
+            else:
+                file_path = str(DATA_DIR / "bills.json")
 
     log.info(f"Loading bills data from: {file_path}")
 

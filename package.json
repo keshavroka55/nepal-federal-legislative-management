@@ -12,7 +12,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "bun run ./src/db/migrate.ts",
     "db:studio": "drizzle-kit studio",
-    "db:import-bills": "bun src/scripts/importBillsFromJson.ts"
+    "db:import-bills": "bun src/scripts/importBillsFromJson.ts",
+    "db:import-committees": "bun src/scripts/importCommitteesFromJson.ts"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.64.0",
