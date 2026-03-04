@@ -16,7 +16,7 @@ const AppLayout = ({
 
       {/* Page content — only this area scrolls */}
       <main className="flex-1 min-w-0 overflow-y-auto pt-14 lg:pt-0">
-        <div className="mx-auto w-full max-w-7xl p-6">{children}</div>
+        <div className="mx-auto w-full max-w-8xl p-6">{children}</div>
       </main>
     </div>
   );

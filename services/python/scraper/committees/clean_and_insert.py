@@ -12,6 +12,7 @@ Create your implementation here.
 
 import json
 import logging
+import re
 import sys
 from pathlib import Path
 
@@ -25,6 +26,37 @@ log = logging.getLogger(__name__)
 # Paths
 BASE_DIR = Path(__file__).parent
 DATA_DIR = BASE_DIR / "data"
+
+
+def normalize_inline_text(value: str) -> str:
+    """Clean short one-line fields."""
+    if not value:
+        return ""
+
+    text = value.replace("\u200b", " ")
+    text = re.sub(r"\s+", " ", text)
+    # Remove leading marker patterns like "*** " or "******** "
+    text = re.sub(r"^\*{1,8}\s*", "", text)
+    return text.strip(" ,\n\t")
+
+
+def normalize_intro_text(value: str) -> str:
+    """Normalize long committee introduction text."""
+    if not value:
+        return ""
+
+    text = value.replace("\u200b", " ")
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+
+    # Remove star-marker lines and star-marker prefixes used as bullet marks.
+    text = re.sub(r"(?m)^\s*\*{1,8}\s*$", "", text)
+    text = re.sub(r"(?m)^\s*\*{1,8}\s*(?=\S)", "", text)
+    text = re.sub(r"\s+\*{2,}\s+(?=\S)", " ", text)
+
+    # Normalize whitespace while keeping paragraph breaks.
+    text = re.sub(r"[ \t]+", " ", text)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
 
 
 def load_committees_data(file_path: str = None):
@@ -68,15 +100,29 @@ def clean_and_normalize(committees: list) -> list:
             "house": committee.get("house"),
             "houseEnum": committee.get("houseEnum"),  # pratinidhi_sabha or rastriya_sabha
             "slug": committee.get("slug"),
-            "nameNp": committee.get("nameNp", ""),
-            "nameEn": committee.get("nameEn", ""),
-            "introductionNp": committee.get("introductionNp", ""),
-            "introductionEn": committee.get("introductionEn", ""),
-            "chairperson": committee.get("chairperson", ""),
-            "chairpersonNp": committee.get("chairpersonNp", ""),
-            "chairpersonEn": committee.get("chairpersonEn", ""),
-            "secretaryNp": committee.get("secretaryNp", ""),
-            "secretaryEn": committee.get("secretaryEn", ""),
+            "nameNp": normalize_inline_text(committee.get("nameNp", "")),
+            "nameEn": normalize_inline_text(committee.get("nameEn", "")),
+            "introductionNp": normalize_intro_text(
+                committee.get("introductionNp", "")
+            ),
+            "introductionEn": normalize_intro_text(
+                committee.get("introductionEn", "")
+            ),
+            "chairperson": normalize_inline_text(
+                committee.get("chairperson", "")
+            ),
+            "chairpersonNp": normalize_inline_text(
+                committee.get("chairpersonNp", "")
+            ),
+            "chairpersonEn": normalize_inline_text(
+                committee.get("chairpersonEn", "")
+            ),
+            "secretaryNp": normalize_inline_text(
+                committee.get("secretaryNp", "")
+            ),
+            "secretaryEn": normalize_inline_text(
+                committee.get("secretaryEn", "")
+            ),
             "menuLinksNp": committee.get("menuLinksNp", {}) or {},
             "menuLinksEn": committee.get("menuLinksEn", {}) or {},
             "membersPageUrlNp": committee.get("membersPageUrlNp"),

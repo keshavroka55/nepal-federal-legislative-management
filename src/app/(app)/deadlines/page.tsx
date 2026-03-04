@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dashboard — Vidhan",
+  title: "Deadlines — Vidhan",
   description: "View upcoming legislative and procedural deadlines.",
 };
 
@@ -9,10 +9,10 @@ export default function DeadlinesPage() {
   return (
     <div className="space-y-3">
       <h1 className="text-2xl font-bold tracking-tight text-foreground">
-        Dashboard
+        Deadlines
       </h1>
       <p className="text-sm text-muted-foreground">
-        Dashboard route is now active.
+        Deadline tracking route is now active.
       </p>
     </div>
   );

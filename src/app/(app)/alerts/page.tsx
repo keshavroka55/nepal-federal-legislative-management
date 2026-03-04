@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dashboard — Vidhan",
-  description: "View upcoming legislative and procedural deadlines.",
+  title: "Alerts — Vidhan",
+  description: "Manage bill status alerts and notifications.",
 };
 
-export default function DeadlinesPage() {
+export default function AlertsPage() {
   return (
     <div className="space-y-3">
       <h1 className="text-2xl font-bold tracking-tight text-foreground">
-        Dashboard
+        Alerts
       </h1>
       <p className="text-sm text-muted-foreground">
-        Dashboard route is now active.
+        Alert management route is available.
       </p>
     </div>
   );

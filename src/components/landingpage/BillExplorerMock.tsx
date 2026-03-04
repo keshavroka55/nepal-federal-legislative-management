@@ -98,15 +98,14 @@ const BillExplorerMock = ({
                 clear progress, complete history.
               </p>
             </div>
-            <Link href="/dashboard">
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="px-6 py-2.5 rounded-xl border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all font-semibold text-sm cursor-pointer"
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                href="/dashboard"
+                className="px-6 py-2.5 rounded-xl border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all font-semibold text-sm block"
               >
                 Open Full App →
-              </motion.button>
-            </Link>
+              </Link>
+            </motion.div>
           </div>
         </FadeIn>
 

@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dashboard — Vidhan",
-  description: "View upcoming legislative and procedural deadlines.",
+  title: "Settings — Vidhan",
+  description: "Configure preferences for the Vidhan tracker.",
 };
 
-export default function DeadlinesPage() {
+export default function SettingsPage() {
   return (
     <div className="space-y-3">
       <h1 className="text-2xl font-bold tracking-tight text-foreground">
-        Dashboard
+        Settings
       </h1>
       <p className="text-sm text-muted-foreground">
-        Dashboard route is now active.
+        Settings route is active.
       </p>
     </div>
   );

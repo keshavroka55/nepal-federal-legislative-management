@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dashboard — Vidhan",
-  description: "View upcoming legislative and procedural deadlines.",
+  title: "AI Analysis — Vidhan",
+  description: "AI-assisted summaries and legislative analysis tools.",
 };
 
-export default function DeadlinesPage() {
+export default function AiPage() {
   return (
     <div className="space-y-3">
       <h1 className="text-2xl font-bold tracking-tight text-foreground">
-        Dashboard
+        AI Analysis
       </h1>
       <p className="text-sm text-muted-foreground">
-        Dashboard route is now active.
+        AI analysis route is available for feature integration.
       </p>
     </div>
   );

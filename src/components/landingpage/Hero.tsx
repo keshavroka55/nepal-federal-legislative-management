@@ -77,24 +77,22 @@ const Hero = ({ stats }: { stats: StatsData | null }) => {
             transition={{ delay: 0.5, duration: 0.5 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
           >
-            <Link href="/app">
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="w-full sm:w-auto px-8 py-4 bg-primary text-primary-foreground rounded-xl font-bold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/20 cursor-pointer"
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                href="/dashboard"
+                className="w-full sm:w-auto px-8 py-4 bg-primary text-primary-foreground rounded-xl font-bold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/20"
               >
                 Explore Bills <ArrowRight className="w-4 h-4" />
-              </motion.button>
-            </Link>
-            <Link href="#how-it-works">
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="w-full sm:w-auto px-8 py-4 bg-background text-foreground border border-border rounded-xl font-semibold hover:bg-muted transition-colors flex items-center justify-center gap-2 cursor-pointer"
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                href="#how-it-works"
+                className="w-full sm:w-auto px-8 py-4 bg-background text-foreground border border-border rounded-xl font-semibold hover:bg-muted transition-colors flex items-center justify-center gap-2"
               >
                 How It Works <ChevronDown className="w-4 h-4" />
-              </motion.button>
-            </Link>
+              </Link>
+            </motion.div>
           </motion.div>
         </motion.div>
 

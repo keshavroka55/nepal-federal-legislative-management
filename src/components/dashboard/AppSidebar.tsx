@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import {
   BarChart3,
   BellRing,
@@ -21,6 +21,14 @@ import {
   X,
 } from "lucide-react";
 import { useTheme } from "@/components/providers/ThemeProvider";
+
+function useIsMounted() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+}
 
 type NavItem = {
   label: string;
@@ -134,9 +142,11 @@ function NavLink({ item, isActive }: { item: NavItem; isActive: boolean }) {
 }
 
 function SidebarContent({ pathname }: { pathname: string }) {
+  const mounted = useIsMounted();
   const { resolvedTheme, setTheme } = useTheme();
+  const isDark = (resolvedTheme ?? "dark") === "dark";
   const toggleTheme = () =>
-    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+    setTheme(isDark ? "light" : "dark");
 
   return (
     <div className="relative z-10 flex h-full flex-col">
@@ -195,7 +205,7 @@ function SidebarContent({ pathname }: { pathname: string }) {
           className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-foreground/10 transition-colors"
           aria-label="Toggle theme"
         >
-          {resolvedTheme === "dark" ? (
+          {mounted && isDark ? (
             <Sun className="h-4 w-4" />
           ) : (
             <Moon className="h-4 w-4" />
@@ -229,9 +239,11 @@ function SidebarContent({ pathname }: { pathname: string }) {
 export function AppSidebar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const mounted = useIsMounted();
   const { resolvedTheme, setTheme } = useTheme();
+  const isDark = (resolvedTheme ?? "dark") === "dark";
   const toggleTheme = () =>
-    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+    setTheme(isDark ? "light" : "dark");
 
   return (
     <>
@@ -258,7 +270,7 @@ export function AppSidebar() {
             className="flex h-9 w-9 items-center justify-center rounded-lg text-sidebar-foreground/60 hover:bg-sidebar-foreground/10 hover:text-sidebar-foreground transition-colors"
             aria-label="Toggle theme"
           >
-            {resolvedTheme === "dark" ? (
+            {mounted && isDark ? (
               <Sun className="h-4 w-4" />
             ) : (
               <Moon className="h-4 w-4" />

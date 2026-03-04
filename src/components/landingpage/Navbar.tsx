@@ -3,14 +3,23 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { Building2, Sun, Moon, ArrowRight, X, Menu } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import { useTheme } from "@/components/providers/ThemeProvider";
+
+function useIsMounted() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+}
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mounted = useIsMounted();
   const { resolvedTheme, setTheme } = useTheme();
-  const isDark = resolvedTheme === "dark";
+  const isDark = (resolvedTheme ?? "dark") === "dark";
   const toggleTheme = () => setTheme(isDark ? "light" : "dark");
 
   useEffect(() => {
@@ -67,7 +76,7 @@ const Navbar = () => {
             aria-label="Toggle theme"
           >
             <AnimatePresence mode="wait" initial={false}>
-              {isDark ? (
+              {mounted && isDark ? (
                 <motion.div
                   key="sun"
                   initial={{ rotate: -90, opacity: 0 }}
@@ -90,16 +99,15 @@ const Navbar = () => {
               )}
             </AnimatePresence>
           </motion.button>
-          <Link href="/dashboard">
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-5 py-2.5 rounded-full font-semibold text-sm transition-all hover:shadow-lg hover:shadow-primary/20 flex items-center gap-2 cursor-pointer"
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <Link
+              href="/dashboard"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-5 py-2.5 rounded-full font-semibold text-sm transition-all hover:shadow-lg hover:shadow-primary/20 flex items-center gap-2"
             >
               View Live Bills
               <ArrowRight className="w-4 h-4" />
-            </motion.button>
-          </Link>
+            </Link>
+          </motion.div>
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
@@ -110,7 +118,7 @@ const Navbar = () => {
             className="p-2 rounded-full bg-muted/50 hover:bg-muted text-foreground transition-colors cursor-pointer"
             aria-label="Toggle theme"
           >
-            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            {mounted && isDark ? <Sun size={18} /> : <Moon size={18} />}
           </motion.button>
           <button
             className="text-foreground p-2"
@@ -145,9 +153,9 @@ const Navbar = () => {
                 onClick={() => setMobileMenuOpen(false)}
                 className="mt-2"
               >
-                <button className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-bold">
+                <span className="block w-full bg-primary text-primary-foreground py-3 rounded-lg font-bold text-center">
                   View Live Bills
-                </button>
+                </span>
               </Link>
             </div>
           </motion.div>
